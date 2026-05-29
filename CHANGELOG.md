@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-05-29
+
+### Added
+
+- **Makefile commands**: Added `dc.claude.update` and `dc.tidewave.update` to update Claude Code and Tidewave inside the devcontainer. Added `dc.makefile.pull` to pull the latest Makefile from the GitHub repo. Added `dc.bun.install` to install the assets with `mix bun`. Added `dc.rebuild.force` to force rebuild the devcontainer without cache.
+- **Allowed domains**: Added default domains for Crates.io, Cloudflare, and Stripe.
+
 ## 2026-03-30
 
 ### Added

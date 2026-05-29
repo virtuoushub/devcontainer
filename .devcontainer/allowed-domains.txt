@@ -12,10 +12,12 @@ google.com
 # Zed
 .zed.dev
 
+# Google APIs
+storage.googleapis.com
+
 # Anthropic (Claude)
 .anthropic.com
 .claude.com
-storage.googleapis.com
 
 # Telemetry
 .sentry.io
@@ -25,6 +27,9 @@ storage.googleapis.com
 .npmjs.org
 .npmjs.com
 
+# Rust toolchain
+.crates.io
+
 # Hex (Elixir packages)
 .hex.pm
 .hexdocs.pm
@@ -32,8 +37,12 @@ storage.googleapis.com
 # Typst (PDF rendering)
 .typst.org
 
+# Cloudflare
+.cloudflare.com
+
+# Stripe
+.stripe.com
+
 # VS Code
 .visualstudio.com
 .vscode.blob.core.windows.net
-
-
