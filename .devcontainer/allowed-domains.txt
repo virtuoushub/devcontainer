@@ -34,6 +34,9 @@ storage.googleapis.com
 .hex.pm
 .hexdocs.pm
 
+# Phoenix
+.phoenixframework.org
+
 # Typst (PDF rendering)
 .typst.org
 
