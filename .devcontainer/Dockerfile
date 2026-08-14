@@ -118,10 +118,12 @@ RUN sh -c "$(curl -fsSL https://github.com/deluan/zsh-in-docker/releases/downloa
     && echo "zstyle ':completion:*:make:*' tag-order targets" >> /home/dev/.zshrc \
     && echo 'wt() { cd /workspace/.worktrees/$1 2>/dev/null || cd /workspace; }' >> /home/dev/.zshrc
 
-# Install Claude Code via npm (faster and cacheable)
+# Install npm 12 and Claude Code via npm (faster and cacheable)
 ENV PATH=$PATH:/home/$USERNAME/.local/bin
 ENV NPM_CONFIG_PREFIX=/home/$USERNAME/.local
-RUN npm install -g @anthropic-ai/claude-code && npm cache clean --force
+RUN npm install -g npm@12.0.2 \
+    && npm install -g @anthropic-ai/claude-code \
+    && npm cache clean --force
 
 # Install Tidewave CLI (optional, disable with INSTALL_TIDEWAVE=false)
 ARG INSTALL_TIDEWAVE
