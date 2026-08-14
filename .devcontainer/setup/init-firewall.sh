@@ -108,7 +108,9 @@ iptables -A INPUT -s "$HOST_NETWORK" -j ACCEPT
 iptables -A OUTPUT -d "$HOST_NETWORK" -j ACCEPT
 
 # Allow host.docker.internal (resolves to a different subnet on Docker Desktop)
-DOCKER_HOST_IP=$(getent hosts host.docker.internal | awk '{print $1}')
+# getent exits with code 2 when the hostname is not found (e.g. GitHub Codespaces);
+# the || true prevents pipefail from treating this as a fatal error.
+DOCKER_HOST_IP=$(getent hosts host.docker.internal 2>/dev/null | awk '{print $1}') || true
 if [ -n "$DOCKER_HOST_IP" ]; then
     echo "host.docker.internal: $DOCKER_HOST_IP"
     iptables -A INPUT -s "$DOCKER_HOST_IP" -j ACCEPT
