@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     unzip \
     curl \
     ca-certificates \
+    gnupg \
     iptables \
     ipset \
     iproute2 \
@@ -36,8 +37,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     make \
     libc-dev \
     inotify-tools \
-    nodejs \
-    npm \
     squid-openssl \
     && ln -sf /usr/bin/vim.tiny /usr/bin/vim \
     && sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen \
@@ -48,6 +47,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
+
+# Install Node.js 24 LTS (required by latest Claude Code npm package)
+RUN mkdir -p /etc/apt/keyrings \
+    && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key \
+    | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
+    && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_24.x nodistro main" \
+    > /etc/apt/sources.list.d/nodesource.list \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends nodejs \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Create non-root dev user (no general sudo — only scoped sudo for the firewall init script)
 ARG USERNAME=dev
@@ -109,10 +118,12 @@ RUN sh -c "$(curl -fsSL https://github.com/deluan/zsh-in-docker/releases/downloa
     && echo "zstyle ':completion:*:make:*' tag-order targets" >> /home/dev/.zshrc \
     && echo 'wt() { cd /workspace/.worktrees/$1 2>/dev/null || cd /workspace; }' >> /home/dev/.zshrc
 
-# Install Claude Code via npm (faster and cacheable)
+# Install npm 12 and Claude Code via npm (faster and cacheable)
 ENV PATH=$PATH:/home/$USERNAME/.local/bin
 ENV NPM_CONFIG_PREFIX=/home/$USERNAME/.local
-RUN npm install -g @anthropic-ai/claude-code && npm cache clean --force
+RUN npm install -g npm@12.0.2 \
+    && npm install -g @anthropic-ai/claude-code \
+    && npm cache clean --force
 
 # Install Tidewave CLI (optional, disable with INSTALL_TIDEWAVE=false)
 ARG INSTALL_TIDEWAVE
