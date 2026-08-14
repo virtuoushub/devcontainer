@@ -142,6 +142,19 @@ iptables -A OUTPUT -j REJECT --reject-with icmp-admin-prohibited
 
 # --- Verification ---
 echo "Verifying firewall rules..."
+
+# Some environments don't publish DNS for this hostname. If missing, map it to
+# phoenixframework.org so the URL can still be reached from inside the container.
+if ! getent hosts hexdocs.phoenixframework.org >/dev/null 2>&1; then
+    PHOENIX_IP=$(getent hosts phoenixframework.org 2>/dev/null | awk 'NR==1 { print $1 }')
+    if [ -n "$PHOENIX_IP" ]; then
+        if ! grep -q "[[:space:]]hexdocs.phoenixframework.org\\b" /etc/hosts; then
+            echo "$PHOENIX_IP hexdocs.phoenixframework.org" >> /etc/hosts
+            echo "Added /etc/hosts fallback for hexdocs.phoenixframework.org -> $PHOENIX_IP"
+        fi
+    fi
+fi
+
 if curl --connect-timeout 5 https://example.com >/dev/null 2>&1; then
     echo "ERROR: Firewall verification failed - was able to reach https://example.com"
     exit 1
@@ -163,12 +176,18 @@ else
     echo "PASS: claude.ai reachable"
 fi
 
-if ! curl --connect-timeout 5 https://phoenix.hexdocs.pm >/dev/null 2>&1; then
-    echo "ERROR: Firewall verification failed - unable to reach https://phoenix.hexdocs.pm"
-    exit 1
-else
-    echo "PASS: phoenix.hexdocs.pm reachable"
-fi
+for url in \
+    https://hexdocs.phoenixframework.org \
+    https://phoenixframework.org \
+    https://phoenix.hexdocs.pm \
+    https://hexdocs.pm; do
+    if ! curl --connect-timeout 5 "$url" >/dev/null 2>&1; then
+        echo "ERROR: Firewall verification failed - unable to reach $url"
+        exit 1
+    else
+        echo "PASS: $url reachable"
+    fi
+done
 
 if ! curl --connect-timeout 5 https://google.com >/dev/null 2>&1; then
     echo "ERROR: Firewall verification failed - unable to reach https://google.com"
