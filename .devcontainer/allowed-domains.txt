@@ -1,52 +1,51 @@
 # Firewall verification domains - ideally you don't remove them, but if you do
 # you must replace them with existing domains in the verification step of the `init-firewall.sh` script
 google.com
-.github.com
-.claude.ai
+github.com
+claude.ai
 
 # GitHub
-.githubusercontent.com
-.githubassets.com
-.github.io
+githubusercontent.com
+githubassets.com
+github.io
 
 # Zed
-.zed.dev
+zed.dev
 
 # Google APIs
 storage.googleapis.com
 
 # Anthropic (Claude)
-.anthropic.com
-.claude.com
+anthropic.com
+claude.com
 
 # Telemetry
-.sentry.io
-.statsig.com
+sentry.io
+statsig.com
 
 # npm (for npx/Tidewave ACP)
-.npmjs.org
-.npmjs.com
+npmjs.org
+npmjs.com
 
 # Rust toolchain
-.crates.io
+crates.io
 
 # Hex (Elixir packages)
-.hex.pm
-.hexdocs.pm
+hex.pm
+hexdocs.pm
 
 # Phoenix
 phoenixframework.org
-.phoenixframework.org
 
 # Typst (PDF rendering)
-.typst.org
+typst.org
 
 # Cloudflare
-.cloudflare.com
+cloudflare.com
 
 # Stripe
-.stripe.com
+stripe.com
 
 # VS Code
-.visualstudio.com
-.vscode.blob.core.windows.net
+visualstudio.com
+vscode.blob.core.windows.net
