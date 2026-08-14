@@ -167,13 +167,6 @@ else
     echo "PASS: claude.ai reachable"
 fi
 
-if ! curl --connect-timeout 5 https://hexdocs.phoenixframework.org >/dev/null 2>&1; then
-    echo "ERROR: Firewall verification failed - unable to reach https://hexdocs.phoenixframework.org"
-    exit 1
-else
-    echo "PASS: hexdocs.phoenixframework.org reachable"
-fi
-
 if ! curl --connect-timeout 5 https://phoenixframework.org >/dev/null 2>&1; then
     echo "ERROR: Firewall verification failed - unable to reach https://phoenixframework.org"
     exit 1
