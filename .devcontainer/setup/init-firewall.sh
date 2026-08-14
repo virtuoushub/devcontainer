@@ -167,17 +167,40 @@ else
     echo "PASS: claude.ai reachable"
 fi
 
-for url in \
-    https://phoenixframework.org \
-    https://phoenix.hexdocs.pm \
-    https://hexdocs.pm; do
-    if ! curl --connect-timeout 5 "$url" >/dev/null 2>&1; then
-        echo "ERROR: Firewall verification failed - unable to reach $url"
-        exit 1
-    else
-        echo "PASS: $url reachable"
-    fi
-done
+if ! curl --connect-timeout 5 https://hexdocs.phoenixframework.org >/dev/null 2>&1; then
+    echo "ERROR: Firewall verification failed - unable to reach https://hexdocs.phoenixframework.org"
+    exit 1
+else
+    echo "PASS: hexdocs.phoenixframework.org reachable"
+fi
+
+if ! curl --connect-timeout 5 https://phoenixframework.org >/dev/null 2>&1; then
+    echo "ERROR: Firewall verification failed - unable to reach https://phoenixframework.org"
+    exit 1
+else
+    echo "PASS: phoenixframework.org reachable"
+fi
+
+if ! curl --connect-timeout 5 https://new.phoenixframework.org >/dev/null 2>&1; then
+    echo "ERROR: Firewall verification failed - unable to reach https://new.phoenixframework.org"
+    exit 1
+else
+    echo "PASS: new.phoenixframework.org reachable"
+fi
+
+if ! curl --connect-timeout 5 https://phoenix.hexdocs.pm >/dev/null 2>&1; then
+    echo "ERROR: Firewall verification failed - unable to reach https://phoenix.hexdocs.pm"
+    exit 1
+else
+    echo "PASS: phoenix.hexdocs.pm reachable"
+fi
+
+if ! curl --connect-timeout 5 https://hexdocs.pm >/dev/null 2>&1; then
+    echo "ERROR: Firewall verification failed - unable to reach https://hexdocs.pm"
+    exit 1
+else
+    echo "PASS: hexdocs.pm reachable"
+fi
 
 if ! curl --connect-timeout 5 https://google.com >/dev/null 2>&1; then
     echo "ERROR: Firewall verification failed - unable to reach https://google.com"
