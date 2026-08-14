@@ -168,7 +168,6 @@ else
 fi
 
 for url in \
-    https://hexdocs.phoenixframework.org \
     https://phoenixframework.org \
     https://phoenix.hexdocs.pm \
     https://hexdocs.pm; do
