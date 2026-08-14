@@ -36,8 +36,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     make \
     libc-dev \
     inotify-tools \
-    nodejs \
-    npm \
     squid-openssl \
     && ln -sf /usr/bin/vim.tiny /usr/bin/vim \
     && sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen \
@@ -48,6 +46,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
+
+# Install Node.js 22 (required by latest Claude Code npm package)
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+    && apt-get install -y --no-install-recommends nodejs \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Create non-root dev user (no general sudo — only scoped sudo for the firewall init script)
 ARG USERNAME=dev
