@@ -91,9 +91,6 @@ iptables -A OUTPUT -o lo -j ACCEPT
 # Allow DNS (needed for Squid to resolve domains)
 iptables -A OUTPUT -p udp --dport 53 -j ACCEPT
 iptables -A INPUT -p udp --sport 53 -j ACCEPT
-# Also allow TCP DNS (for large responses / DNSSEC fallback)
-iptables -A OUTPUT -p tcp --dport 53 -j ACCEPT
-iptables -A INPUT -p tcp --sport 53 -j ACCEPT
 
 # Allow established/related connections
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
