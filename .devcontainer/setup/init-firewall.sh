@@ -142,6 +142,7 @@ iptables -A OUTPUT -j REJECT --reject-with icmp-admin-prohibited
 
 # --- Verification ---
 echo "Verifying firewall rules..."
+
 if curl --connect-timeout 5 https://example.com >/dev/null 2>&1; then
     echo "ERROR: Firewall verification failed - was able to reach https://example.com"
     exit 1
@@ -161,6 +162,34 @@ if ! curl --connect-timeout 5 https://claude.ai >/dev/null 2>&1; then
     exit 1
 else
     echo "PASS: claude.ai reachable"
+fi
+
+if ! curl --connect-timeout 5 https://phoenixframework.org >/dev/null 2>&1; then
+    echo "ERROR: Firewall verification failed - unable to reach https://phoenixframework.org"
+    exit 1
+else
+    echo "PASS: phoenixframework.org reachable"
+fi
+
+if ! curl --connect-timeout 5 https://new.phoenixframework.org >/dev/null 2>&1; then
+    echo "ERROR: Firewall verification failed - unable to reach https://new.phoenixframework.org"
+    exit 1
+else
+    echo "PASS: new.phoenixframework.org reachable"
+fi
+
+if ! curl --connect-timeout 5 https://phoenix.hexdocs.pm >/dev/null 2>&1; then
+    echo "ERROR: Firewall verification failed - unable to reach https://phoenix.hexdocs.pm"
+    exit 1
+else
+    echo "PASS: phoenix.hexdocs.pm reachable"
+fi
+
+if ! curl --connect-timeout 5 https://hexdocs.pm >/dev/null 2>&1; then
+    echo "ERROR: Firewall verification failed - unable to reach https://hexdocs.pm"
+    exit 1
+else
+    echo "PASS: hexdocs.pm reachable"
 fi
 
 if ! curl --connect-timeout 5 https://google.com >/dev/null 2>&1; then
