@@ -135,11 +135,11 @@ dc.test:
 
 dc.popcorn.cook:
 	$(require_devcontainer)
-	exec mix popcorn.cook
+	mix popcorn.cook
 
 dc.popcorn.gen.js:
 	$(require_devcontainer)
-	exec mix popcorn.gen.js
+	mix popcorn.gen.js
 
 dc.popcorn.server:
 	$(require_devcontainer)
