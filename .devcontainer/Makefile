@@ -1,4 +1,4 @@
-.PHONY: list dc.up dc.status dc.stop dc.rebuild dc.rebuild.force dc.down dc.shell dc.claude dc.claude.update dc.makefile.pull dc.bun.install dc.tidewave dc.tidewave.bg dc.tidewave.stop dc.tidewave.update dc.logs.proxy dc.server dc.test dc.worktree.new dc.worktree.list dc.worktree.remove
+.PHONY: list dc.up dc.status dc.stop dc.rebuild dc.rebuild.force dc.down dc.shell dc.claude dc.claude.update dc.makefile.pull dc.bun.install dc.tidewave dc.tidewave.bg dc.tidewave.stop dc.tidewave.update dc.logs.proxy dc.server dc.test dc.popcorn.cook dc.popcorn.gen.js dc.popcorn.server dc.worktree.new dc.worktree.list dc.worktree.remove
 
 define require_devcontainer
 	@if [ "$$DEVCONTAINER" != "true" ]; then echo "Error: This command must be run inside the devcontainer." >&2; exit 1; fi
@@ -27,6 +27,9 @@ list:
 		"make dc.tidewave.update" "Update Tidewave CLI to the latest release" \
 		"make dc.server"         "Starts the Phoenix server inside an IEx session" \
 		"make dc.test"           "Runs the test suite using 'mix test'" \
+		"make dc.popcorn.cook"   "Compiles Elixir into a Popcorn .avm bundle" \
+		"make dc.popcorn.gen.js" "Scaffolds the Popcorn JS build in assets/" \
+		"make dc.popcorn.server" "Starts a local server to try out Popcorn in the browser" \
 		"make dc.logs.proxy"     "Print proxy logs" \
 		"make dc.logs.tidewave"  "Print tidewave logs" \
 		"" "" \
@@ -129,6 +132,18 @@ dc.server:
 dc.test:
 	$(require_devcontainer)
 	MIX_ENV=test mix test
+
+dc.popcorn.cook:
+	$(require_devcontainer)
+	exec mix popcorn.cook
+
+dc.popcorn.gen.js:
+	$(require_devcontainer)
+	exec mix popcorn.gen.js
+
+dc.popcorn.server:
+	$(require_devcontainer)
+	exec mix popcorn.server
 
 # --- Worktree commands ---
 # Usage: make dc.worktree.new <name> [base-branch]

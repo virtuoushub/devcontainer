@@ -188,6 +188,29 @@ To disable Tidewave, make two changes:
 
 Then rebuild with `make dc.rebuild`.
 
+## Using Popcorn (Elixir in the browser)
+
+[Popcorn](https://hexdocs.pm/popcorn/first_steps.html) lets you compile Elixir to WebAssembly and run it client-side in the browser. Since the container already allows `.hex.pm`, `.hexdocs.pm`, and `.npmjs.com`/`.npmjs.org`, no `allowed-domains.txt` changes are needed to install and build it.
+
+> **Compatibility warning:** Popcorn currently only works with **OTP 26.0.2** and **Elixir 1.17.3**. This devcontainer defaults to newer versions (see [Customizing the base image](#customizing-the-base-image)), so pin the build args in `.devcontainer/Dockerfile` before adding Popcorn:
+>
+> ```dockerfile
+> ARG ELIXIR_VERSION=1.17.3
+> ARG OTP_VERSION=26.0.2
+> ```
+>
+> Then run `make dc.rebuild` to rebuild the container with the compatible toolchain.
+
+Once the container is running the compatible Elixir/OTP versions, add `{:popcorn, "~> 0.3.3"}` to `mix.exs` per the [First steps guide](https://hexdocs.pm/popcorn/first_steps.html), then use:
+
+```bash
+make dc.popcorn.cook      # Compiles Elixir into a Popcorn .avm bundle
+make dc.popcorn.gen.js    # Scaffolds the JS build in assets/
+make dc.popcorn.server    # Serves the built app for local testing
+```
+
+`mix popcorn.server` serves on `localhost:4000`, the same port already forwarded in `devcontainer.json`.
+
 ## How the firewall works
 
 The container uses a layered approach to make `--dangerously-skip-permissions` safer:
