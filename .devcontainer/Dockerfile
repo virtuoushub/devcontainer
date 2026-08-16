@@ -1,5 +1,5 @@
-ARG ELIXIR_VERSION=1.19.5
-ARG OTP_VERSION=28.3.2
+ARG ELIXIR_VERSION=1.17.3
+ARG OTP_VERSION=26.0.2
 ARG DEBIAN_VERSION=trixie-20260202-slim
 
 # Installs the Tidewave CLI by default. Set to `false` and remove the port mapping
