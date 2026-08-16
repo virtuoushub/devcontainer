@@ -5,6 +5,7 @@
 ### Changed
 
 - **Base image versions**: Updated default `ELIXIR_VERSION` (1.19.5 → 1.17.3) and `OTP_VERSION` (28.3.2 → 26.0.2) in `.devcontainer/Dockerfile` to match the versions required by [Popcorn](https://hexdocs.pm/popcorn/first_steps.html).
+- **Claude Code install**: Simplified the Dockerfile's npm install command to `npm install -g @anthropic-ai/claude-code`, dropping the `--allow-scripts` flag.
 
 ## 2026-05-29
 
