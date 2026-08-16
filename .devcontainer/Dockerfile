@@ -1,5 +1,5 @@
-ARG ELIXIR_VERSION=1.19.5
-ARG OTP_VERSION=28.3.2
+ARG ELIXIR_VERSION=1.17.3
+ARG OTP_VERSION=26.0.2
 ARG DEBIAN_VERSION=trixie-20260202-slim
 
 # Installs the Tidewave CLI by default. Set to `false` and remove the port mapping
@@ -122,7 +122,8 @@ RUN sh -c "$(curl -fsSL https://github.com/deluan/zsh-in-docker/releases/downloa
 ENV PATH=$PATH:/home/$USERNAME/.local/bin
 ENV NPM_CONFIG_PREFIX=/home/$USERNAME/.local
 RUN npm install -g npm@12.0.2 \
-    && npm install -g --allow-scripts=@anthropic-ai/claude-code \
+    && npm config set allow-scripts=@anthropic-ai/claude-code --location=user \
+    && npm install -g @anthropic-ai/claude-code \
     && npm cache clean --force
 
 # Install Tidewave CLI (optional, disable with INSTALL_TIDEWAVE=false)
