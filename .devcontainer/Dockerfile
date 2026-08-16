@@ -122,6 +122,7 @@ RUN sh -c "$(curl -fsSL https://github.com/deluan/zsh-in-docker/releases/downloa
 ENV PATH=$PATH:/home/$USERNAME/.local/bin
 ENV NPM_CONFIG_PREFIX=/home/$USERNAME/.local
 RUN npm install -g npm@12.0.2 \
+    && npm config set allow-scripts=@anthropic-ai/claude-code --location=user \
     && npm install -g @anthropic-ai/claude-code \
     && npm cache clean --force
 
