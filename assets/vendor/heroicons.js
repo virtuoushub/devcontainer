@@ -3,7 +3,9 @@ const fs = require("fs")
 const path = require("path")
 
 module.exports = plugin(function({matchComponents, theme}) {
-  let iconsDir = path.join(__dirname, "../../deps/heroicons/optimized")
+  // The devcontainer sets MIX_DEPS_PATH to keep deps out of the host mount.
+  let depsDir = process.env.MIX_DEPS_PATH || path.join(__dirname, "../../deps")
+  let iconsDir = path.join(depsDir, "heroicons/optimized")
   let values = {}
   let icons = [
     ["", "/24/outline"],
