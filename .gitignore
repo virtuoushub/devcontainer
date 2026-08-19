@@ -22,3 +22,6 @@ npm-debug.log
 # Database files
 *.db
 *.db-*
+
+# Popcorn build output
+/dist/
