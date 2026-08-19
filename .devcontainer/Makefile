@@ -135,7 +135,7 @@ dc.test:
 
 dc.popcorn.cook:
 	$(require_devcontainer)
-	mix popcorn.cook
+	mix popcorn.cook --start-module Workspace.WasmWorker
 
 dc.popcorn.gen.js:
 	$(require_devcontainer)
